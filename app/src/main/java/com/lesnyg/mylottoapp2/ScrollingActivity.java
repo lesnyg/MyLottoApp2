@@ -46,12 +46,7 @@ public class ScrollingActivity extends AppCompatActivity {
             lastText = result.getText();
             barcodeView.setStatusText(result.getText());
             mViewModel.qrCodeMutableLiveData.setValue(result.getText());
-            mViewModel.qrCodeMutableLiveData.observe(ScrollingActivity.this, new Observer<String>() {
-                @Override
-                public void onChanged(String s) {
-                    mWebView.loadUrl(lastText);
-                }
-            });
+
 
             beepManager.playBeepSoundAndVibrate();
         }
@@ -80,6 +75,14 @@ public class ScrollingActivity extends AppCompatActivity {
         webSettings.setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new WebViewClient());
         mViewModel= ViewModelProviders.of(this).get(ViewModel.class);
+
+        mViewModel.qrCodeMutableLiveData.observe(ScrollingActivity.this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                mWebView.loadUrl(s);
+
+            }
+        });
     }
 
 
