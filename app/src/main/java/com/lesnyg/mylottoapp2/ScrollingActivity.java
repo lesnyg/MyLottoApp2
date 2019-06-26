@@ -1,8 +1,11 @@
 package com.lesnyg.mylottoapp2;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.ResultPoint;
 import com.google.zxing.client.android.BeepManager;
@@ -31,6 +34,10 @@ import java.util.Collection;
 import java.util.List;
 
 public class ScrollingActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CODE_PERMISSIONS = 10;
+    private List<String> REQUIRED_PERMISSIONS = Arrays.asList(Manifest.permission.CAMERA);
+
     private WebView mWebView;
     private ViewModel mViewModel;
     private DecoratedBarcodeView barcodeView;
@@ -81,6 +88,17 @@ public class ScrollingActivity extends AppCompatActivity {
             public void onChanged(String s) {
                 mWebView.loadUrl(s);
 
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Intent intent = new Intent(ScrollingActivity.this,MakerActivity.class);
+                startActivity(intent);
             }
         });
     }
